@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head />
+<h:body>
+	<h:form>
+	    <p:growl id="growl" showDetail="false" sticky="true" />  
+		<fieldset>
+		
+			<legend>Dados de Cadastro do Fornecedor</legend>
+			<p:panelGrid columns="2">
+
+
+				<p:outputLabel value="Nome do Fornecedor:" for="idDescricaoFornecero" />
+				<p:inputText value="#{fornecedorBean.fornecedor.descricao}"	id="idDescricaoFornecero" required="true" 
+					requiredMessage="Descição do Fornecedor obrigatório" 
+					maxlength="50"
+					validator="#{fornecedorBean.validaNomeEmpresa}">
+					<f:validateLength maximum="40"/>
+				</p:inputText>
+
+				<p:outputLabel value="CNPJ do Fornecedor:" for="idCnpjFornecedor" />
+				<p:inputText value="#{fornecedorBean.fornecedor.cnpj}" id="idCnpjFornecedor" required="true" 
+					requiredMessage="CNPJ do Fornecedor obrigatório" validatorMessage="CNPJ do Fornecedor não pode ser superior a 40" maxlength="40">
+					<f:validateLength maximum="40"/>
+				</p:inputText>
+
+				<p:outputLabel value="Telefone do Fornecedor:" for="idTelefoneFornecedor" />
+				<p:inputText value="#{fornecedorBean.fornecedor.telefone}" id="idTelefoneFornecedor" />
+
+				<p:outputLabel value="Tipo de Fornecedor:" for="idTipoFornecedor" />
+				<p:selectOneMenu value="#{fornecedorBean.fornecedor.tipoFabrica}" id="idTipoFornecedor" required="true" requiredMessage="Tipo de Fornecedor obrigatório">
+					<f:selectItem itemLabel="Selecione..." itemValue=""
+						noSelectionOption="true" />
+					<f:selectItems value="#{fornecedorBean.tipoFabrica}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Data do Cadastro" for="idDataCadastro" />
+				<p:inputText value="#{fornecedorBean.fornecedor.dataCadastro.time}"	id="idDataCadastro" disabled="true">
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss.SSS" timeZone="America/Sao_Paulo" />
+				</p:inputText>
+
+
+				<p:outputLabel value="" />
+				<h:commandButton action="#{fornecedorBean.cadastrarFornecedor}"	value="Cadastrar Fornecedor" />
+
+			</p:panelGrid>
+
+
+		</fieldset>
+
+
+
+
+	</h:form>
+	<p:dataTable value="#{fornecedorBean.fornecedores}" var="fornecedor"
+		lazy="true" id="id_data_fornecedor">
+
+		<p:column>
+			<h:outputLabel value="#{fornecedor.descricao}" />
+		</p:column>
+
+		<p:column>
+			<h:outputLabel value="#{fornecedor.cnpj}" />
+		</p:column>
+
+	</p:dataTable>
+</h:body>
+</html>
